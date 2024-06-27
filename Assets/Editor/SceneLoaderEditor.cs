@@ -1,18 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
+using UnityEditor.SceneManagement;
+using UnityEngine.SceneManagement;
 
-public class SceneLoaderEditor : MonoBehaviour
+public class SceneLoaderEditor : Editor
 {
-    // Start is called before the first frame update
-    void Start()
+    [MenuItem("Scene/Main _F1")]
+    public static void SwitchScene()
     {
-        
+        SceneLoad("Assets/Scenes/Test.unity");
     }
 
-    // Update is called once per frame
-    void Update()
+    static void SceneLoad(string scenePath)
     {
-        
+        if (SceneManager.GetActiveScene().isDirty)
+            EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo();
+        EditorSceneManager.OpenScene(scenePath, OpenSceneMode.Single);
     }
 }
